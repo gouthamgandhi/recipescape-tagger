@@ -5,7 +5,7 @@ import { Word, Tag } from '../types';
 type Props = {
   word: Word;
   selected: Boolean;
-}
+};
 
 export default class WordComponent extends React.Component<Props, {}> {
 
@@ -13,18 +13,21 @@ export default class WordComponent extends React.Component<Props, {}> {
     const { word: { content, tag }, selected } = this.props;
 
     let className = 'word';
-    if (tag === Tag.Ingredient)
+    if (tag === Tag.Ingredient) {
       className += ' ingr';
-    if (tag === Tag.Action)
+    }
+    if (tag === Tag.Action) {
       className += ' action';
-    if (selected)
+    }
+    if (selected) {
       className += ' selected';
+    }
 
     return (
       <div className={className}>
         <span>{content}</span>
       </div>
-    )
+    );
   }
 
 }

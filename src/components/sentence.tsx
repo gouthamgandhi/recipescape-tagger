@@ -7,23 +7,23 @@ type Props = {
   sentence: Sentence;
   currentWord: [number, number];
   index: Number;
-}
+};
 
 export default class SentenceComponent extends React.Component<Props, {}> {
 
   public render() {
-    const { sentence, currentWord, index } = this.props
+    const { sentence, currentWord, index } = this.props;
     const { words } = sentence;
     return (
       <div className="sentence">
         {words.map((w, i) => (
           <WordComponent
-            key={w.content}
+            key={i}
             selected={index === currentWord[0] && i === currentWord[1]}
             word={w}
           />
         ))}
       </div>
-    )
+    );
   }
 }

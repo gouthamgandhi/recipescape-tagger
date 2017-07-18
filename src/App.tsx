@@ -1,67 +1,69 @@
 import * as React from 'react';
 import './App.css';
 
-import { Position, Recipe, Tag } from './types';
-import RecipeComponent from './components/recipe'
-
-const testRecipe: Recipe = {
-  title: "Chocolate Chip Cookie",
-  sentences: [
-    { words: [
-      { content: "Heat", tag: Tag.None },
-      { content: " ", tag: Tag.None },
-      { content: "oven", tag: Tag.None },
-    ]},
-    { words: [
-      { content: "Cool", tag: Tag.None },
-      { content: " ", tag: Tag.None },
-      { content: "pan", tag: Tag.None },
-    ]},
-  ],
-};
+import { Position, Recipe, Tag, KeyEvent } from './types';
+import RecipeComponent from './components/recipe';
+import { getRecipe, defaultRecipe } from './agent';
+import { updatePosition, updateRecipe } from './mutate';
 
 type AppState = {
   recipe: Recipe,
   currentWord: Position,
-}
+};
 
 class App extends React.Component<{}, AppState> {
   constructor() {
     super();
     this.state = {
-      recipe: testRecipe,
+      recipe: defaultRecipe,
       currentWord: [0, 0],
     };
-    this.handleKey = this.handleKey.bind(this)
+    this.handleKey = this.handleKey.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     document.body.addEventListener('keydown', this.handleKey);
+    const recipe = await getRecipe();
+    this.setState({ recipe });
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener('keydown', this.handleKey)
+    document.body.removeEventListener('keydown', this.handleKey);
   }
 
   handleKey(e: KeyboardEvent): void {
-    if (e.code === "ArrowLeft") {
-      console.log('left')
-    } else if (e.code === "ArrowUp") {
-      console.log('up')
-    } else if (e.code === "ArrowRight") {
-      console.log('right')
-    } else if (e.code === "ArrowDown") {
-      console.log('down')
+    const { recipe, currentWord } = this.state;
+    let newPosition: Position = currentWord;
+    console.log(e.code);
+    if (e.code === 'ArrowLeft') {
+      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Left);
+    } else if (e.code === 'ArrowUp') {
+      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Up);
+    } else if (e.code === 'ArrowRight') {
+      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Right);
+    } else if (e.code === 'ArrowDown') {
+      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Down);
     }
+
+    let newRecipe: Recipe = recipe;
+    if (e.code === 'Digit1') {
+      newRecipe = updateRecipe(recipe, currentWord, Tag.Action);
+    } else if (e.code === 'Digit2') {
+      newRecipe = updateRecipe(recipe, currentWord, Tag.Ingredient);
+    } else if (e.code === 'Digit3') {
+      newRecipe = updateRecipe(recipe, currentWord, Tag.None);
+    }
+
+    this.setState({ currentWord: newPosition, recipe: newRecipe });
   }
 
   render() {
     const {recipe, currentWord} = this.state;
     return (
       <div>
-        <RecipeComponent currentWord={currentWord} recipe={recipe} />
+        <RecipeComponent currentWord={currentWord} recipe={recipe!} />
       </div>
-    )
+    );
   }
 }
 

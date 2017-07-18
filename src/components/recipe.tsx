@@ -6,7 +6,7 @@ import SentenceComponent from './sentence';
 type Props = {
   recipe: Recipe;
   currentWord: Position;
-}
+};
 
 export default class RecipeComponent extends React.Component<Props, {}> {
 
@@ -15,6 +15,7 @@ export default class RecipeComponent extends React.Component<Props, {}> {
 
     return (
       <div>
+        <h2>{recipe.title}</h2>
         {recipe.sentences.map((s, i) => (
           <SentenceComponent
             key={i}
@@ -24,6 +25,6 @@ export default class RecipeComponent extends React.Component<Props, {}> {
           />
         ))}
       </div>
-    )
+    );
   }
 }
