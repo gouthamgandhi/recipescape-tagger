@@ -2,6 +2,7 @@
 export enum POS {
   Verb,
   Noun,
+  Space,
   Etc,
 }
 

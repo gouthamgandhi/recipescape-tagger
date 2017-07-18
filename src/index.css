@@ -4,6 +4,11 @@ body {
   font-family: sans-serif;
 }
 
+.color-map {
+  margin: 10px 0;
+  width: 200px;
+}
+
 .sentence {
   display: block;
   margin-bottom: 10px;
@@ -11,6 +16,7 @@ body {
 
 .word {
   display: inline-block;
+  box-sizing: border-box;
 }
 
 .word.selected {
@@ -23,4 +29,12 @@ body {
 
 .word .pos-chip {
   font-size: 10px;
+}
+
+.word.ingr {
+  background-color: #f7b6d2;
+}
+
+.word.action {
+  background-color: #dbdb8d;
 }

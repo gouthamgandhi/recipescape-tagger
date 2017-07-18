@@ -23,12 +23,15 @@ export default class WordComponent extends React.Component<Props, {}> {
       className += ' selected';
     }
 
-    return (
-      <div className={className}>
-        <div className="pos-chip">{POS[pos]}</div>
-        <span>{content}</span>
-      </div>
-    );
+    if (pos === POS.Space) {
+      return (<div className={className}><span>&nbsp;</span></div>);
+    } else {
+      return (
+        <div className={className}>
+          <div className="pos-chip">{POS[pos]}</div>
+          <span>{content}</span>
+        </div>
+      );
+    }
   }
-
 }
