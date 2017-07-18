@@ -15,7 +15,7 @@ export default class RecipeComponent extends React.Component<Props, {}> {
 
     return (
       <div>
-        <h2>{recipe.title}</h2>
+        <h1>{recipe.title}</h1>
         {recipe.sentences.map((s, i) => (
           <SentenceComponent
             key={i}

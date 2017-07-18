@@ -16,3 +16,11 @@ body {
 .word.selected {
   border: 1px solid red;
 }
+
+.word span {
+  font-size: 25px;
+}
+
+.word .pos-chip {
+  font-size: 10px;
+}

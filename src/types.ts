@@ -1,7 +1,8 @@
+// export type POS = 'verb' | 'noun' | 'etc';
 export enum POS {
   Verb,
   Noun,
-  Etc
+  Etc,
 }
 
 export enum Tag {
