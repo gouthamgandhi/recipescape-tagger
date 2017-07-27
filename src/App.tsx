@@ -3,8 +3,9 @@ import './App.css';
 
 import { Position, Recipe, Tag, KeyEvent } from './types';
 import RecipeComponent from './components/recipe';
-import { getRecipe, defaultRecipe } from './agent';
+import { getNewRecipe, defaultRecipe } from './agent';
 import { updatePosition, updateRecipe } from './mutate';
+import { formatRecipe } from './utils/convert';
 
 type AppState = {
   recipe: Recipe,
@@ -16,14 +17,17 @@ class App extends React.Component<{}, AppState> {
     super();
     this.state = {
       recipe: defaultRecipe,
-      currentWord: [0, 0],
+      currentWord: [0, 0, 0],
     };
     this.handleKey = this.handleKey.bind(this);
   }
 
   async componentDidMount() {
     document.body.addEventListener('keydown', this.handleKey);
-    const recipe = await getRecipe();
+    const resp = await getNewRecipe();
+    console.log(resp);
+    const recipe = formatRecipe(resp.data[0].fields);
+    console.log(recipe);
     this.setState({ recipe });
   }
 
@@ -47,7 +51,7 @@ class App extends React.Component<{}, AppState> {
 
     let newRecipe: Recipe = recipe;
     if (e.code === 'Digit1') {
-      newRecipe = updateRecipe(recipe, currentWord, Tag.Action);
+      newRecipe = updateRecipe(recipe, currentWord, Tag.CookingAction);
     } else if (e.code === 'Digit2') {
       newRecipe = updateRecipe(recipe, currentWord, Tag.Ingredient);
     } else if (e.code === 'Digit3') {

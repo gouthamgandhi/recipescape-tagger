@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Word, Tag, POS } from '../types';
+import { Word, Tag } from '../types';
 
 type Props = {
   word: Word;
@@ -16,22 +16,18 @@ export default class WordComponent extends React.Component<Props, {}> {
     if (tag === Tag.Ingredient) {
       className += ' ingr';
     }
-    if (tag === Tag.Action) {
+    if (tag === Tag.CookingAction) {
       className += ' action';
     }
     if (selected) {
       className += ' selected';
     }
 
-    if (pos === POS.Space) {
-      return (<div className={className}><span>&nbsp;</span></div>);
-    } else {
-      return (
-        <div className={className}>
-          <div className="pos-chip">{POS[pos]}</div>
-          <span>{content}</span>
-        </div>
-      );
-    }
+    return (
+      <div className={className}>
+        <div className="pos-chip">{pos}</div>
+        <span>{content}</span>
+      </div>
+    );
   }
 }

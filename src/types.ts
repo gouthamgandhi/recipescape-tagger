@@ -1,13 +1,7 @@
 // export type POS = 'verb' | 'noun' | 'etc';
-export enum POS {
-  Verb,
-  Noun,
-  Space,
-  Etc,
-}
 
 export enum Tag {
-  Action,
+  CookingAction,
   Ingredient,
   None
 }
@@ -22,17 +16,42 @@ export enum KeyEvent {
 export type Word = {
   content: string;
   tag: Tag;
-  pos: POS;
+  pos: string;
 };
 
 export type Sentence = {
   words: Array<Word>;
 };
 
+export type Instruction = {
+  sentences: Array<Sentence>
+};
+
 export type Recipe = {
   title: String;
   pictureUrl?: String;
-  sentences: Array<Sentence>;
+  instructions: Array<Instruction>;
+  origin_id: string;
+  group_name: string;
 };
 
-export type Position = [number, number];
+export type Response = {
+  origin_id: string,
+  group_name: string,
+  title: string,
+  image_url: string,
+  instructions: {
+    instructions: Array<Array<{
+      index: number,
+      tokens: Array<{
+        pos: string,
+        word: string,
+        originalText: string,
+        after: string,
+      }>
+    }>>
+  }
+};
+
+export type Position = [number, number, number];
+// ( instruction_index, sentence_index, position_index )

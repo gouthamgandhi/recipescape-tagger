@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import { Sentence } from '../types';
+import { Sentence, Position } from '../types';
 import WordComponent from './word';
 
 type Props = {
   sentence: Sentence;
-  currentWord: [number, number];
-  index: Number;
+  currentWord: Position;
+  index: [number, number];
 };
 
 export default class SentenceComponent extends React.Component<Props, {}> {
@@ -19,7 +19,9 @@ export default class SentenceComponent extends React.Component<Props, {}> {
         {words.map((w, i) => (
           <WordComponent
             key={i}
-            selected={index === currentWord[0] && i === currentWord[1]}
+            selected={index[0] === currentWord[0] &&
+                      index[1] === currentWord[1] &&
+                      i === currentWord[2]}
             word={w}
           />
         ))}
