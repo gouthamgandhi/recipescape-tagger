@@ -53,5 +53,16 @@ export type Response = {
   }
 };
 
+export type Annotation = {
+  origin_id: string;
+  annotator: string;
+  annotations: Array<Note>
+};
+
+export type Note = {
+  index: Position;
+  tag: Tag
+};
+
 export type Position = [number, number, number];
 // ( instruction_index, sentence_index, position_index )

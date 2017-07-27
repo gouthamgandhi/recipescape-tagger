@@ -3,9 +3,10 @@ import './App.css';
 
 import { Position, Recipe, Tag, KeyEvent } from './types';
 import RecipeComponent from './components/recipe';
-import { getNewRecipe, defaultRecipe } from './agent';
+import ControlComponent from './components/control';
+import { getNewRecipe, defaultRecipe, postRecipe } from './agent';
 import { updatePosition, updateRecipe } from './mutate';
-import { formatRecipe } from './utils/convert';
+import { formatRecipe, extractAnnotation, resetAnnotation } from './utils/convert';
 
 type AppState = {
   recipe: Recipe,
@@ -20,10 +21,21 @@ class App extends React.Component<{}, AppState> {
       currentWord: [0, 0, 0],
     };
     this.handleKey = this.handleKey.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
+    this.getNewRecipe = this.getNewRecipe.bind(this);
   }
 
   async componentDidMount() {
     document.body.addEventListener('keydown', this.handleKey);
+    this.getNewRecipe();
+  }
+
+  componentWillUnmount() {
+    document.body.removeEventListener('keydown', this.handleKey);
+  }
+
+  async getNewRecipe() {
     const resp = await getNewRecipe();
     console.log(resp);
     const recipe = formatRecipe(resp.data[0].fields);
@@ -31,8 +43,18 @@ class App extends React.Component<{}, AppState> {
     this.setState({ recipe });
   }
 
-  componentWillUnmount() {
-    document.body.removeEventListener('keydown', this.handleKey);
+  async handleSubmit(annotatorName: string) {
+    const { recipe } = this.state;
+    const annotation = extractAnnotation(recipe, annotatorName);
+    await postRecipe(annotation);
+    this.getNewRecipe();
+  }
+
+  handleReset() {
+    this.setState({
+      recipe: resetAnnotation(this.state.recipe),
+      currentWord: [0, 0, 0],
+    });
   }
 
   handleKey(e: KeyboardEvent): void {
@@ -57,7 +79,7 @@ class App extends React.Component<{}, AppState> {
     } else if (e.code === 'Digit3') {
       newRecipe = updateRecipe(recipe, currentWord, Tag.None);
     }
-
+    console.log(extractAnnotation(newRecipe, 'anonymous'));
     this.setState({ currentWord: newPosition, recipe: newRecipe });
   }
 
@@ -65,6 +87,10 @@ class App extends React.Component<{}, AppState> {
     const {recipe, currentWord} = this.state;
     return (
       <div>
+        <ControlComponent
+          handleReset={this.handleReset}
+          handleSubmit={this.handleSubmit}
+        />
         <RecipeComponent currentWord={currentWord} recipe={recipe!} />
       </div>
     );

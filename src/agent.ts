@@ -1,7 +1,7 @@
 import axios, { AxiosPromise } from 'axios';
 
 // import { Recipe, POS, Tag } from './types';
-import { Recipe } from './types';
+import { Annotation, Recipe } from './types';
 
 const API_ROOT = 'http://localhost:8000/tagger/';
 
@@ -13,9 +13,8 @@ export const getNewRecipe = (): AxiosPromise => {
   return axios.get(API_ROOT + 'new');
 };
 
-export const postRecipe = (recipe: Recipe) => {
-  // Not implemented, ye
-  return;
+export const postRecipe = (note: Annotation) => {
+  return axios.post(API_ROOT + 'id' + '/save');
 };
 
 // const testRecipe: Recipe = {

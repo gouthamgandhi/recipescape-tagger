@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+#root {
+  margin-left: 20px;
+}
+
 .color-map {
   margin: 10px 0;
   width: 200px;

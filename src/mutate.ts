@@ -4,9 +4,9 @@ export const updatePosition = (recipe: Recipe, pos: Position, key: KeyEvent): Po
   var newPosition: Position = [0, 0, 0];
 
   if (key === KeyEvent.Down) {
-    newPosition = [pos[0] + 1, pos[1], pos[2]];
+    newPosition = [pos[0], pos[1] + 1, 0];
   } else if (key === KeyEvent.Up) {
-    newPosition = [pos[0] - 1 , pos[1], pos[2]];
+    newPosition = [pos[0], pos[1] - 1, 0];
   } else if (key === KeyEvent.Left) {
     newPosition = [pos[0], pos[1], pos[2] - 1];
   } else if (key === KeyEvent.Right) {
@@ -19,6 +19,15 @@ export const updatePosition = (recipe: Recipe, pos: Position, key: KeyEvent): Po
       const word = sentence.words[newPosition[2]];
       if (word) {
         return newPosition;
+      }
+    } else if (key === KeyEvent.Down) {
+      if (pos[0] + 1 <= recipe.instructions.length - 1) {
+        return [pos[0] + 1, 0, 0];
+      }
+    } else if (key === KeyEvent.Up) {
+      if (pos[0] - 1 >= 0) {
+        const prevInstruction = recipe.instructions[pos[0] - 1];
+        return [pos[0] - 1, prevInstruction.sentences.length - 1, 0];
       }
     }
   }
