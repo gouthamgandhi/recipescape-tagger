@@ -14,7 +14,10 @@ export const getNewRecipe = (): AxiosPromise => {
 };
 
 export const postRecipe = (note: Annotation) => {
-  return axios.post(API_ROOT + 'id' + '/save');
+  return axios.post(`${API_ROOT}${note.origin_id}/save`, {
+    annotator: note.annotator,
+    annotation: note.annotations,
+  });
 };
 
 // const testRecipe: Recipe = {

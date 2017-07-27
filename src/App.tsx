@@ -40,7 +40,10 @@ class App extends React.Component<{}, AppState> {
     console.log(resp);
     const recipe = formatRecipe(resp.data[0].fields);
     console.log(recipe);
-    this.setState({ recipe });
+    this.setState({
+      recipe,
+      currentWord: [0, 0, 0],
+    });
   }
 
   async handleSubmit(annotatorName: string) {
