@@ -18,6 +18,10 @@ body {
   margin-bottom: 10px;
 }
 
+.sentence.inactive {
+  color: #e4e4e4;
+}
+
 .word {
   display: inline-block;
   box-sizing: border-box;

@@ -3,7 +3,8 @@ import axios, { AxiosPromise } from 'axios';
 // import { Recipe, POS, Tag } from './types';
 import { Annotation, Recipe } from './types';
 
-const API_ROOT = 'http://localhost:8000/tagger/';
+// const API_ROOT = 'http://localhost:8000/tagger/';
+const API_ROOT = 'http://52.196.95.113:8000/tagger/';
 
 export const getRecipe = (id: string): AxiosPromise => {
   return axios.get(API_ROOT + id);

@@ -14,8 +14,9 @@ export default class SentenceComponent extends React.Component<Props, {}> {
   public render() {
     const { sentence, currentWord, index } = this.props;
     const { words } = sentence;
+    const hasCurrentWords = (currentWord[0] === index[0]) && (currentWord[1] === index[1]);
     return (
-      <div className="sentence">
+      <div className={`sentence ${hasCurrentWords ? '' : 'inactive'}`}>
         {words.map((w, i) => (
           <WordComponent
             key={i}
