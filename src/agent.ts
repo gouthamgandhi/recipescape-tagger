@@ -3,19 +3,19 @@ import axios, { AxiosPromise } from 'axios';
 // import { Recipe, POS, Tag } from './types';
 import { Annotation, Recipe } from './types';
 
-// const API_ROOT = 'http://localhost:8000/tagger/';
-const API_ROOT = 'http://52.196.95.113:8000/tagger/';
+const API_ROOT = 'http://localhost:8000/tagger';
+// const API_ROOT = 'http://52.196.95.113:8000/tagger/';
 
 export const getRecipe = (id: string): AxiosPromise => {
-  return axios.get(API_ROOT + id);
+  return axios.get(API_ROOT + '/recipe/' + id);
 };
 
 export const getNewRecipe = (): AxiosPromise => {
-  return axios.get(API_ROOT + 'new');
+  return axios.get(API_ROOT + '/recipe');
 };
 
 export const postRecipe = (note: Annotation) => {
-  return axios.post(`${API_ROOT}${note.origin_id}/save`, {
+  return axios.post(`${API_ROOT}/annotation/${note.origin_id}`, {
     annotator: note.annotator,
     annotation: note.annotations,
   });

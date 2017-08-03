@@ -37,9 +37,7 @@ class App extends React.Component<{}, AppState> {
 
   async getNewRecipe() {
     const resp = await getNewRecipe();
-    console.log(resp);
-    const recipe = formatRecipe(resp.data[0].fields);
-    console.log(recipe);
+    const recipe = formatRecipe(resp.data);
     this.setState({
       recipe,
       currentWord: [0, 0, 0],
