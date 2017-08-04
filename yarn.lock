@@ -4028,6 +4028,10 @@ react-error-overlay@^1.0.6:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
+react-facebook-login@^3.6.2:
+  version "3.6.2"
+  resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-3.6.2.tgz#1965f6af54cc90341b788d0752185cfd25a14d30"
+
 react-scripts-ts@2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/react-scripts-ts/-/react-scripts-ts-2.3.2.tgz#7b75267f66e1086f9a11c2bd389ef3b1ba120657"

@@ -1,16 +1,23 @@
 import * as React from 'react';
 import './App.css';
 
-import { Position, Recipe, Tag, KeyEvent } from './types';
+import { Position, Recipe, Tag, KeyEvent, User } from './types';
 import RecipeComponent from './components/recipe';
-import ControlComponent from './components/control';
-import { getNewRecipe, defaultRecipe, postRecipe } from './agent';
+import Login from './components/login';
+import { getNewRecipe, defaultRecipe, postRecipe, getToken } from './agent';
 import { updatePosition, updateRecipe } from './mutate';
 import { formatRecipe, extractAnnotation, resetAnnotation } from './utils/convert';
 
 type AppState = {
   recipe: Recipe,
   currentWord: Position,
+  user: User,
+};
+
+const defaultUser: User = {
+  loggedIn: false,
+  token: '',
+  name: '',
 };
 
 class App extends React.Component<{}, AppState> {
@@ -19,10 +26,13 @@ class App extends React.Component<{}, AppState> {
     this.state = {
       recipe: defaultRecipe,
       currentWord: [0, 0, 0],
+      user: defaultUser,
     };
     this.handleKey = this.handleKey.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
     this.getNewRecipe = this.getNewRecipe.bind(this);
   }
 
@@ -44,11 +54,27 @@ class App extends React.Component<{}, AppState> {
     });
   }
 
-  async handleSubmit(annotatorName: string) {
-    const { recipe } = this.state;
-    const annotation = extractAnnotation(recipe, annotatorName);
+  async handleSubmit() {
+    const { recipe, user: { name } } = this.state;
+    const annotation = extractAnnotation(recipe, name);
     await postRecipe(annotation);
     this.getNewRecipe();
+  }
+
+  async handleLogin(fbToken: string, name: string) {
+    const resp: any = await getToken(fbToken);
+    const token = resp.data.key;
+    this.setState({
+      user: {
+        loggedIn: true,
+        token,
+        name
+      }
+    });
+  }
+
+  handleLogout() {
+    this.setState({ user: defaultUser });
   }
 
   handleReset() {
@@ -88,11 +114,13 @@ class App extends React.Component<{}, AppState> {
     const {recipe, currentWord} = this.state;
     return (
       <div>
-        <ControlComponent
-          handleReset={this.handleReset}
-          handleSubmit={this.handleSubmit}
+        <Login
+          user={this.state.user}
+          handleLogin={this.handleLogin}
+          handleLogout={this.handleLogout}
         />
         <RecipeComponent currentWord={currentWord} recipe={recipe!} />
+        <button onClick={this.handleSubmit}>Submit</button>
       </div>
     );
   }

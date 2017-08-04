@@ -3,6 +3,7 @@ import axios, { AxiosPromise } from 'axios';
 // import { Recipe, POS, Tag } from './types';
 import { Annotation, Recipe } from './types';
 
+const API_LOGIN = 'http://localhost:8000/rest-auth';
 const API_ROOT = 'http://localhost:8000/tagger';
 // const API_ROOT = 'http://52.196.95.113:8000/tagger/';
 
@@ -18,6 +19,12 @@ export const postRecipe = (note: Annotation) => {
   return axios.post(`${API_ROOT}/annotation/${note.origin_id}`, {
     annotator: note.annotator,
     annotation: note.annotations,
+  });
+};
+
+export const getToken = (fbToken: string) => {
+  return axios.post(`${API_LOGIN}/facebook/`, {
+    access_token: fbToken,
   });
 };
 

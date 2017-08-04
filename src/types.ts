@@ -64,5 +64,11 @@ export type Note = {
   tag: Tag
 };
 
+export type User = {
+  loggedIn: Boolean,
+  token: string,
+  name: string,
+};
+
 export type Position = [number, number, number];
 // ( instruction_index, sentence_index, position_index )
