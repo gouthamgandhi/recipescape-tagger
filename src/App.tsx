@@ -59,9 +59,9 @@ class App extends React.Component<{}, AppState> {
     if (!confirm) {
       return;
     }
-    const { recipe, user: { name } } = this.state;
+    const { recipe, user: { name, token } } = this.state;
     const annotation = extractAnnotation(recipe, name);
-    await postRecipe(annotation);
+    await postRecipe(annotation, token);
     this.getNewRecipe();
   }
 
@@ -123,7 +123,7 @@ class App extends React.Component<{}, AppState> {
   }
 
   render() {
-    const {recipe, currentWord} = this.state;
+    const {recipe, currentWord, user: { loggedIn } } = this.state;
     return (
       <div>
         <Login
@@ -131,8 +131,13 @@ class App extends React.Component<{}, AppState> {
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
         />
-        <RecipeComponent currentWord={currentWord} recipe={recipe!} />
-        <button onClick={this.handleSubmit}>Submit</button>
+        { loggedIn ?
+          <div>
+            <RecipeComponent currentWord={currentWord} recipe={recipe!} />
+            <button onClick={this.handleSubmit}>Submit</button>
+          </div> :
+          null
+        }
       </div>
     );
   }

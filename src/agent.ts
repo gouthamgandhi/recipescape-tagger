@@ -3,8 +3,9 @@ import axios, { AxiosPromise } from 'axios';
 // import { Recipe, POS, Tag } from './types';
 import { Annotation, Recipe } from './types';
 
-const API_LOGIN = 'http://localhost:8000/rest-auth';
-const API_ROOT = 'http://localhost:8000/tagger';
+const BASE_URL = 'https://play.hyeungshikjung.com';
+const API_LOGIN = BASE_URL + '/rest-auth';
+const API_ROOT = BASE_URL + '/tagger';
 // const API_ROOT = 'http://52.196.95.113:8000/tagger/';
 
 export const getRecipe = (id: string): AxiosPromise => {
@@ -15,11 +16,18 @@ export const getNewRecipe = (): AxiosPromise => {
   return axios.get(API_ROOT + '/recipe');
 };
 
-export const postRecipe = (note: Annotation) => {
+export const postRecipe = (note: Annotation, token: string) => {
+  const headers = {
+    'Authorization': `Token ${token}`
+  };
+  console.log(headers);
   return axios.post(`${API_ROOT}/annotation/${note.origin_id}`, {
-    annotator: note.annotator,
-    annotation: note.annotations,
-  });
+      annotator: note.annotator,
+      annotation: note.annotations,
+    },              {
+      headers,
+    }
+  );
 };
 
 export const getToken = (fbToken: string) => {

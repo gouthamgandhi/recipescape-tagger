@@ -2,6 +2,7 @@
   "name": "recipe-tagger",
   "version": "0.1.0",
   "private": true,
+  "homepage" : "https://kixlab.github.io/recipescape-tagger",
   "dependencies": {
     "@types/jest": "^20.0.2",
     "@types/node": "^8.0.8",
@@ -21,6 +22,8 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }
