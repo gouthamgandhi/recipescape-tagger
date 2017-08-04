@@ -16,8 +16,9 @@ export default class RecipeComponent extends React.Component<Props, {}> {
 
     return (
       <div>
-        <h1>{recipe.title}</h1>
         <ColorMap />
+        <h1>{recipe.title}</h1>
+        <img src={recipe.pictureUrl} />
         {recipe.instructions.map((s, i) => (
           <InstructionComponent
             key={i}

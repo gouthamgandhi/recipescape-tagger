@@ -12,6 +12,9 @@ const ColorMap: React.SFC = () => {
       <div>
         3️⃣ Cancel
       </div>
+      <div>
+        ↩️ Press Enter or click submit to proceed
+      </div>
     </div>
   );
 };

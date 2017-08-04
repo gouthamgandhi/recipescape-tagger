@@ -55,6 +55,10 @@ class App extends React.Component<{}, AppState> {
   }
 
   async handleSubmit() {
+    const confirm = window.confirm('Proceed to next recipe?');
+    if (!confirm) {
+      return;
+    }
     const { recipe, user: { name } } = this.state;
     const annotation = extractAnnotation(recipe, name);
     await postRecipe(annotation);
@@ -88,6 +92,11 @@ class App extends React.Component<{}, AppState> {
     const { recipe, currentWord } = this.state;
     let newPosition: Position = currentWord;
     console.log(e.code);
+    if (e.code === 'Enter') {
+      this.handleSubmit();
+      return;
+    }
+
     if (e.code === 'ArrowLeft') {
       newPosition = updatePosition(recipe!, currentWord, KeyEvent.Left);
     } else if (e.code === 'ArrowUp') {
@@ -101,10 +110,13 @@ class App extends React.Component<{}, AppState> {
     let newRecipe: Recipe = recipe;
     if (e.code === 'Digit1') {
       newRecipe = updateRecipe(recipe, currentWord, Tag.CookingAction);
+      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Right);
     } else if (e.code === 'Digit2') {
       newRecipe = updateRecipe(recipe, currentWord, Tag.Ingredient);
+      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Right);
     } else if (e.code === 'Digit3') {
       newRecipe = updateRecipe(recipe, currentWord, Tag.None);
+      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Right);
     }
     console.log(extractAnnotation(newRecipe, 'anonymous'));
     this.setState({ currentWord: newPosition, recipe: newRecipe });

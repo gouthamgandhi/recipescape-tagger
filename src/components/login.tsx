@@ -20,7 +20,6 @@ class Login extends React.Component<Props, {}> {
 
   render() {
     const {user} = this.props;
-    console.log(user);
     if (!user.loggedIn) {
       return (
         <FacebookLogin

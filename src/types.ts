@@ -28,8 +28,8 @@ export type Instruction = {
 };
 
 export type Recipe = {
-  title: String;
-  pictureUrl?: String;
+  title: string;
+  pictureUrl?: string;
   instructions: Array<Instruction>;
   origin_id: string;
   group_name: string;
