@@ -2,6 +2,8 @@ import * as React from 'react';
 import { User } from '../types';
 import FacebookLogin from 'react-facebook-login';
 
+import { FB_APP_ID } from '../constants';
+
 type Props = {
   user: User,
   handleLogin: (token: string, name: string) => void;
@@ -23,7 +25,7 @@ class Login extends React.Component<Props, {}> {
     if (!user.loggedIn) {
       return (
         <FacebookLogin
-          appId="474796816217493"
+          appId={FB_APP_ID}
           callback={this.handleLogin}
         />
       );

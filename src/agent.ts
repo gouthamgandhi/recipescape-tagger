@@ -2,8 +2,8 @@ import axios, { AxiosPromise } from 'axios';
 
 // import { Recipe, POS, Tag } from './types';
 import { Annotation, Recipe } from './types';
+import { BASE_URL } from './constants';
 
-const BASE_URL = 'https://play.hyeungshikjung.com';
 const API_LOGIN = BASE_URL + '/rest-auth';
 const API_ROOT = BASE_URL + '/tagger';
 // const API_ROOT = 'http://52.196.95.113:8000/tagger/';
