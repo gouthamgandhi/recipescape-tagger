@@ -36,6 +36,10 @@ export const updatePosition = (recipe: Recipe, pos: Position, key: KeyEvent): Po
 
 export const updateRecipe = (recipe: Recipe, location: Position, tag: Tag): Recipe => {
   const word = recipe.instructions[location[0]].sentences[location[1]].words[location[2]];
-  word.tag = tag;
+  if (word.tag === tag) {
+    word.tag = Tag.None;
+  } else {
+    word.tag = tag;
+  }
   return recipe;
 };

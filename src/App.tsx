@@ -127,13 +127,10 @@ class App extends React.Component<{}, AppState> {
     let newRecipe: Recipe = recipe;
     if (e.code === 'Digit1') {
       newRecipe = updateRecipe(recipe, currentWord, Tag.CookingAction);
-      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Right);
     } else if (e.code === 'Digit2') {
       newRecipe = updateRecipe(recipe, currentWord, Tag.Ingredient);
-      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Right);
     } else if (e.code === 'Digit3') {
       newRecipe = updateRecipe(recipe, currentWord, Tag.None);
-      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Right);
     }
     console.log(extractAnnotation(newRecipe, 'anonymous'));
     this.setState({ currentWord: newPosition, recipe: newRecipe });
