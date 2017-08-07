@@ -105,9 +105,13 @@ class App extends React.Component<{}, AppState> {
     const { recipe, currentWord } = this.state;
     let newPosition: Position = currentWord;
     console.log(e.code);
-    if (e.code === 'Enter') {
+    if (e.code === 'Enter' &&
+        currentWord[0] === recipe.instructions.length &&
+        currentWord[1] === recipe.instructions[currentWord[0]].sentences.length) {
       this.handleSubmit();
       return;
+    } else if (e.code === 'Enter') {
+      newPosition = updatePosition(recipe!, currentWord, KeyEvent.Down);
     }
 
     if (e.code === 'ArrowLeft') {
