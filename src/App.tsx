@@ -148,7 +148,7 @@ class App extends React.Component<{}, AppState> {
         { loggedIn ?
           <div>
             <RecipeComponent currentWord={currentWord} recipe={recipe!} />
-            <button onClick={this.handleSubmit}>Submit</button>
+            <button className="button submit" onClick={this.handleSubmit}>Submit</button>
           </div> :
           null
         }
