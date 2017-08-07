@@ -68,6 +68,9 @@ export type User = {
   loggedIn: Boolean,
   token: string,
   name: string,
+  count: {
+    recipe: number,
+  }
 };
 
 export type Position = [number, number, number];

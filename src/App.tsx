@@ -4,7 +4,7 @@ import './App.css';
 import { Position, Recipe, Tag, KeyEvent, User } from './types';
 import RecipeComponent from './components/recipe';
 import Login from './components/login';
-import { getNewRecipe, defaultRecipe, postRecipe, getToken } from './agent';
+import { getNewRecipe, defaultRecipe, postRecipe, getToken, getUserProgress } from './agent';
 import { updatePosition, updateRecipe } from './mutate';
 import { formatRecipe, extractAnnotation, resetAnnotation } from './utils/convert';
 
@@ -18,6 +18,9 @@ const defaultUser: User = {
   loggedIn: false,
   token: '',
   name: '',
+  count: {
+    recipe: 0,
+  }
 };
 
 class App extends React.Component<{}, AppState> {
@@ -46,8 +49,8 @@ class App extends React.Component<{}, AppState> {
   }
 
   async getNewRecipe() {
-    const resp = await getNewRecipe();
-    const recipe = formatRecipe(resp.data);
+    const recipeResp = await getNewRecipe();
+    const recipe = formatRecipe(recipeResp.data);
     this.setState({
       recipe,
       currentWord: [0, 0, 0],
@@ -63,16 +66,26 @@ class App extends React.Component<{}, AppState> {
     const annotation = extractAnnotation(recipe, name);
     await postRecipe(annotation, token);
     this.getNewRecipe();
+    const countResp = await getUserProgress(token);
+    this.setState({
+      user: {
+        ...this.state.user,
+        count: countResp.data.count,
+      }
+    });
   }
 
   async handleLogin(fbToken: string, name: string) {
     const resp: any = await getToken(fbToken);
     const token = resp.data.key;
+    const countResp = await getUserProgress(token);
     this.setState({
       user: {
+        ...this.state.user,
         loggedIn: true,
         token,
-        name
+        name,
+        count: countResp.data.count,
       }
     });
   }

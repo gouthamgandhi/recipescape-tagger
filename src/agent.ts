@@ -36,6 +36,12 @@ export const getToken = (fbToken: string) => {
   });
 };
 
+export function getUserProgress(token: string) {
+  const headers = {
+    'Authorization': `Token ${token}`
+  };
+  return axios.get(`${API_ROOT}/user`, { headers });
+}
 // const testRecipe: Recipe = {
 //   title: 'Chocolate Chip Cookie',
 //   sentences: [

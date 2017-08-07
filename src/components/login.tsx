@@ -34,6 +34,7 @@ class Login extends React.Component<Props, {}> {
       <div>
         <h4>Hello {user.name}</h4>
         <button onClick={this.props.handleLogout}>logout</button>
+        <p>Total recipe tagged: {user.count.recipe}</p>
       </div>
     );
   }
