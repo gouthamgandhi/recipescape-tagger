@@ -1,7 +1,23 @@
 import { KeyEvent, Recipe, Position, Tag } from './types';
 
+const skipWords: string[] = [',', ';', '.', ':'];
+
+export const getWordContent = (recipe: Recipe, pos: Position): string => {
+  const instruction = recipe.instructions[pos[0]];
+  if (instruction) {
+    const sentence = instruction.sentences[pos[1]];
+    if (sentence) {
+      const word = sentence.words[pos[2]];
+      if (word) {
+        return word.content;
+      }
+    }
+  }
+  return '';
+};
+
 export const updatePosition = (recipe: Recipe, pos: Position, key: KeyEvent): Position => {
-  var newPosition: Position = [0, 0, 0];
+  let newPosition: Position = [0, 0, 0];
 
   if (key === KeyEvent.Down) {
     newPosition = [pos[0], pos[1] + 1, 0];
@@ -9,8 +25,14 @@ export const updatePosition = (recipe: Recipe, pos: Position, key: KeyEvent): Po
     newPosition = [pos[0], pos[1] - 1, 0];
   } else if (key === KeyEvent.Left) {
     newPosition = [pos[0], pos[1], pos[2] - 1];
+    if (skipWords.includes(getWordContent(recipe, newPosition).trim())) {
+      newPosition = [pos[0], pos[1], pos[2] - 2];
+    }
   } else if (key === KeyEvent.Right) {
     newPosition = [pos[0], pos[1], pos[2] + 1];
+    if (skipWords.includes(getWordContent(recipe, newPosition).trim())) {
+      newPosition = [pos[0], pos[1], pos[2] + 2];
+    }
   }
   const instruction = recipe.instructions[newPosition[0]];
   if (instruction) {
