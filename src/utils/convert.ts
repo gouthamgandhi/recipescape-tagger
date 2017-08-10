@@ -33,12 +33,13 @@ export const formatRecipe = (resp: Response): Recipe => {
 };
 
 export const extractAnnotation = (recipe: Recipe, annotator: string): Annotation => {
+  debugger;
   const annotations = [];
-  for (let i = 0; i < recipe.instructions.length - 1; i++) {
+  for (let i = 0; i < recipe.instructions.length; i++) {
     const instruction = recipe.instructions[i];
-    for (let j = 0; j < instruction.sentences.length - 1; j++) {
+    for (let j = 0; j < instruction.sentences.length; j++) {
       const sentence = instruction.sentences[j];
-      for (let k = 0; k < sentence.words.length - 1; k++) {
+      for (let k = 0; k < sentence.words.length; k++) {
         const word = sentence.words[k];
         const note: Note = {
           index: [i, j, k],
