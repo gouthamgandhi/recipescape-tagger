@@ -33,7 +33,6 @@ export const formatRecipe = (resp: Response): Recipe => {
 };
 
 export const extractAnnotation = (recipe: Recipe, annotator: string): Annotation => {
-  debugger;
   const annotations = [];
   for (let i = 0; i < recipe.instructions.length; i++) {
     const instruction = recipe.instructions[i];

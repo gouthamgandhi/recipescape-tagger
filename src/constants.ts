@@ -1,3 +1,3 @@
 const isProd = process.env.NODE_ENV === 'production';
-export const FB_APP_ID = '474796816217493';
-export const BASE_URL = isProd ? 'https://play.hyeungshikjung.com' : 'http://localhost:8000';
+export const BASE_URL = isProd ? 'https://recipe.hyeungshikjung.com' : 'http://localhost:8000';
+export const GOOGLE_APP_ID = '163346241513-66r5f3qq8naciu6k3hj11g3i9nq32llr.apps.googleusercontent.com';

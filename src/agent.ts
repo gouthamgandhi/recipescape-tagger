@@ -7,6 +7,9 @@ import { BASE_URL } from './constants';
 const API_LOGIN = BASE_URL + '/rest-auth';
 const API_ROOT = BASE_URL + '/tagger';
 
+const makeHeader = (token: string): { headers: {Authorization: string}} =>
+  ({headers: {Authorization: `Token ${token}`}});
+
 export const getRecipe = (id: string): AxiosPromise => {
   return axios.get(API_ROOT + '/recipe/' + id);
 };
@@ -16,29 +19,21 @@ export const getNewRecipe = (): AxiosPromise => {
 };
 
 export const postRecipe = (note: Annotation, token: string) => {
-  const headers = {
-    'Authorization': `Token ${token}`
-  };
   return axios.post(`${API_ROOT}/annotation/${note.origin_id}`, {
       annotator: note.annotator,
       annotation: note.annotations,
-    },              {
-      headers,
-    }
+    },              makeHeader(token)
   );
 };
 
-export const getToken = (fbToken: string) => {
-  return axios.post(`${API_LOGIN}/facebook/`, {
-    access_token: fbToken,
+export const getToken = (googToken: string) => {
+  return axios.post(`${API_LOGIN}/google/`, {
+    access_token: googToken,
   });
 };
 
 export function getUserProgress(token: string) {
-  const headers = {
-    'Authorization': `Token ${token}`
-  };
-  return axios.get(`${API_ROOT}/user`, { headers });
+  return axios.get(`${API_ROOT}/user`, makeHeader(token));
 }
 
 export const defaultRecipe: Recipe = {

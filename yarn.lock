@@ -23,6 +23,12 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-facebook-login@^3.6.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@types/react-facebook-login/-/react-facebook-login-3.6.1.tgz#1e499e8ba1144f72773166c74159a42657347a76"
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^15.0.35":
   version "15.0.35"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-15.0.35.tgz#4672923cd502d03e1480d03816ebc5a719fb86da"
@@ -3866,7 +3872,7 @@ promise@7.1.1, promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10:
+prop-types@^15.5.0, prop-types@^15.5.10:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -4031,6 +4037,13 @@ react-error-overlay@^1.0.6:
 react-facebook-login@^3.6.2:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-3.6.2.tgz#1965f6af54cc90341b788d0752185cfd25a14d30"
+
+react-google-login@^2.9.3:
+  version "2.9.3"
+  resolved "https://registry.yarnpkg.com/react-google-login/-/react-google-login-2.9.3.tgz#3ae6c395a215e635bad9fa951583fef50acb75fc"
+  dependencies:
+    "@types/react" "*"
+    prop-types "^15.5.0"
 
 react-scripts-ts@2.3.2:
   version "2.3.2"

@@ -75,8 +75,8 @@ class App extends React.Component<{}, AppState> {
     });
   }
 
-  async handleLogin(fbToken: string, name: string) {
-    const resp: any = await getToken(fbToken);
+  async handleLogin(googToken: string, name: string) {
+    const resp: any = await getToken(googToken);
     const token = resp.data.key;
     const countResp = await getUserProgress(token);
     this.setState({
@@ -132,7 +132,6 @@ class App extends React.Component<{}, AppState> {
     } else if (e.code === 'Digit3') {
       newRecipe = updateRecipe(recipe, currentWord, Tag.None);
     }
-    console.log(extractAnnotation(newRecipe, 'anonymous'));
     this.setState({ currentWord: newPosition, recipe: newRecipe });
   }
 

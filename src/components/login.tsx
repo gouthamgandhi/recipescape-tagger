@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { User } from '../types';
-import FacebookLogin from 'react-facebook-login';
+import GoogleLogin from 'react-google-login';
 
-import { FB_APP_ID } from '../constants';
+import { GOOGLE_APP_ID } from '../constants';
 
 type Props = {
   user: User,
@@ -13,20 +13,26 @@ type Props = {
 class Login extends React.Component<Props, {}> {
   constructor() {
     super();
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
 
-  handleLogin(resp: any) {
-    this.props.handleLogin(resp.accessToken, resp.name);
+  handleGoogleLogin(resp: any) {
+    this.props.handleLogin(resp.accessToken, resp.profileObj.name);
+  }
+
+  handleGoogleFailure(resp: any) {
+    console.log(resp);
   }
 
   render() {
     const {user} = this.props;
     if (!user.loggedIn) {
       return (
-        <FacebookLogin
-          appId={FB_APP_ID}
-          callback={this.handleLogin}
+        <GoogleLogin
+          clientId={GOOGLE_APP_ID}
+          buttonText="Login With Google"
+          onSuccess={this.handleGoogleLogin}
+          onFailure={this.handleGoogleFailure}
         />
       );
     }
