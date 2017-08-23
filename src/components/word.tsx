@@ -10,7 +10,7 @@ type Props = {
 export default class WordComponent extends React.Component<Props, {}> {
 
   public render() {
-    const { word: { content, tag, pos }, selected } = this.props;
+    const { word: { content, tag }, selected } = this.props;
 
     let className = 'word';
     if (tag === Tag.Ingredient) {
@@ -25,7 +25,6 @@ export default class WordComponent extends React.Component<Props, {}> {
 
     return (
       <div className={className}>
-        <div className="pos-chip">{pos}</div>
         <span>{content}</span>
       </div>
     );

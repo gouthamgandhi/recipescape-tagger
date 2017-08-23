@@ -10,7 +10,7 @@ const ColorMap: React.SFC = () => {
         2️⃣ Ingredient
       </div>
       <div>
-        3️⃣ Skip
+        3️⃣ Cancel
       </div>
       <div>
         ↩️ Press Enter or click submit to proceed
